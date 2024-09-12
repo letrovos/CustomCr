@@ -1,0 +1,35 @@
+const canvas = document.getElementById('crosshairCanvas');
+const ctx = canvas.getContext('2d');
+const colorPicker = document.getElementById('colorPicker');
+const sizeSlider = document.getElementById('sizeSlider');
+
+// Set canvas dimensions
+canvas.width = 200;
+canvas.height = 200;
+
+function drawCrosshair() {
+    const size = sizeSlider.value;
+    const color = colorPicker.value;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Set crosshair color
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+
+    // Draw crosshair
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - size / 2, canvas.height / 2);
+    ctx.lineTo(canvas.width / 2 + size / 2, canvas.height / 2);
+    ctx.moveTo(canvas.width / 2, canvas.height / 2 - size / 2);
+    ctx.lineTo(canvas.width / 2, canvas.height / 2 + size / 2);
+    ctx.stroke();
+}
+
+// Update crosshair on input changes
+colorPicker.addEventListener('input', drawCrosshair);
+sizeSlider.addEventListener('input', drawCrosshair);
+
+// Initial draw
+drawCrosshair();
